@@ -1,0 +1,45 @@
+# File param
+    File included (as last param):
+        Yes. [property validFile]
+        No. [error]
+    Number of lines:
+        None. [if validFile] [property emptyFile]
+        One. [if validFile] [property singleLine]
+        Multiple. [if validFile] [property multipleLines]
+    Ends with newline:
+        Yes. [if validFile]
+        No. [if validFile] [error]
+
+# Options
+    -s:
+        Zero. [if emptyFile] [single] [else]
+        One, no lines in file. [if emptyFile] [single]
+        One, 1+ lines in file. [if validFile && !emptyFile] [single]
+        Non-integer. [error]
+        Out of bounds. [error]
+        Empty. [error]
+        Not toggled.
+    -w:
+        leading, no lines in file. [if emptyFile] [single] [property wToggled]
+        leading, 1+ lines in file. [if validFile && !emptyFile] [single] [property wToggled]
+        trailing, no lines in file. [if emptyFile] [single] [property wToggled]
+        trailing, 1+ lines in file. [if validFile && !emptyFile] [single] [property wToggled]
+        all, no lines in file. [if emptyFile] [single] [property wToggled]
+        all. [property wToggled]
+        Other string. [if validFile] [error] [property wToggled, wError]
+        Empty. [if validFile] [error] [property wToggled, wError]
+        Not toggled.
+    -x:
+        Toggled. [if !wToggled] [single]
+        Toggled with -w option. [if wToggled && !wError && validFile] [error]
+        Not toggled.
+    -r:
+        text. [if emptyFile] [single] [else]
+        words, no lines in file. [if emptyFile] [single]
+        words, 1+ lines in file. [if validFile && !emptyFile] [single]
+        Other string. [if validFile] [error]
+        Not toggled.
+    -p:
+        Not empty. [if emptyFile] [single] [else]
+        Empty. [if validFile] [error]
+        Not toggled.
